@@ -11,6 +11,35 @@ public class AddressBookMain {
     static ArrayList<String> check=new ArrayList<>();
     public static final String SAMPLE_CSV_FILE_PATH = "C:\\Users\\mural\\IdeaProjects\\AddressBook_CSV_JSON\\src\\main\\resources\\Users.csv";
     public static void main(String[] args) throws IOException {
+        try (
+                Reader reader = Files.newBufferedReader(Paths.get(SAMPLE_CSV_FILE_PATH));
+                CSVReader csvReader = new CSVReader(reader);
+        ){
+            String[] nextRecord;
+            while ((nextRecord = csvReader.readNext()) != null) {
+                System.out.println("FirstName: " + nextRecord[0]);
+                System.out.println("LastName: " + nextRecord[1]);
+                System.out.println("Address: " + nextRecord[2]);
+                System.out.println("City: " + nextRecord[3]);
+                System.out.println("State: "+ nextRecord[4]);
+                System.out.println("Zip: " +nextRecord[5]);
+                System.out.println("Phone: " +nextRecord[6]);
+                System.out.println("Email: " +nextRecord[7]);
+                System.out.println("====================");
+            }
+            List<String[]> records = csvReader.readAll();
+            for(String[] record : records){
+                System.out.println("FirstName: " + record[0]);
+                System.out.println("LastName: " + record[1]);
+                System.out.println("Address: " + record[2]);
+                System.out.println("City: " + record[3]);
+                System.out.println("State: "+ record[4]);
+                System.out.println("Zip: " +record[5]);
+                System.out.println("Phone: " +record[6]);
+                System.out.println("Email: " +record[7]);
+                System.out.println("----------------------");
+            }
+        }
         bookdetails book1 = new bookdetails();
         System.out.println("..........Address Book Problem................");
         Scanner sc = new Scanner(System.in);
