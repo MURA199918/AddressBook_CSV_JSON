@@ -1,12 +1,45 @@
+import com.opencsv.bean.CsvBindByName;
+
 public class contact {
+    @CsvBindByName
     String firstname;
+
+    @CsvBindByName
     String lastname;
+
+    @CsvBindByName
     String address;
+
+    @CsvBindByName
     String city;
+
+    @CsvBindByName
     String state;
+
+    @CsvBindByName
     int zip;
+
+    @CsvBindByName(column = "phoneno")
     int phoneno;
+
+    @CsvBindByName(column = "email",required = true)
     String email;
+
+    public contact(String firstname, String lastname, String address, String city, String state, int zip, int phone, String email) {
+        this.firstname=firstname;
+        this.lastname=lastname;
+        this.address=address;
+        this.city=city;
+        this.state=state;
+        this.zip=zip;
+        this.phoneno=phone;
+        this.email=email;
+    }
+
+    public contact() {
+
+    }
+
     public String getFirstname(){
         return firstname;
     }
@@ -55,8 +88,19 @@ public class contact {
     public void setEmail(){
         this.email=email;
     }
-    public String toString(){
-        return String.format("FirstName: "+firstname+" "+"LastName: "+lastname+" "+"Address: "+address+" "+"City: "+city+" "+"State: "+state+" "+"Zip: "+zip+" "+"PhoneNumber: "+phoneno+" "+"EmailID: "+email);
+
+    @Override
+    public String toString() {
+        return "contact{" +
+                "firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", zip=" + zip +
+                ", phoneno=" + phoneno +
+                ", email='" + email + '\'' +
+                '}';
     }
 
 }
