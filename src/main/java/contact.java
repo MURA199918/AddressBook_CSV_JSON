@@ -1,62 +1,106 @@
+import com.opencsv.bean.CsvBindByName;
+
 public class contact {
+    @CsvBindByName
     String firstname;
+
+    @CsvBindByName
     String lastname;
+
+    @CsvBindByName
     String address;
+
+    @CsvBindByName
     String city;
+
+    @CsvBindByName
     String state;
+
+    @CsvBindByName
     int zip;
+
+    @CsvBindByName(column = "phoneno")
     int phoneno;
+
+    @CsvBindByName(column = "email", required = true)
     String email;
-    public String getFirstname(){
+
+    public String getFirstname() {
         return firstname;
     }
-    public void setFirstname(){
-        this.firstname=firstname;
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
-    public String getLastname(){
+
+    public String getLastname() {
         return lastname;
     }
-    public void setLastname(){
-        this.lastname=lastname;
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
-    public String getAddress(){
+
+    public String getAddress() {
         return address;
     }
-    public void setAddress(){
-        this.address=address;
+
+    public void setAddress(String address) {
+        this.address = address;
     }
-    public String getCity(){
+
+    public String getCity() {
         return city;
     }
-    public void setCity(){
-        this.city=city;
+
+    public void setCity(String city) {
+        this.city = city;
     }
-    public String getState(){
+
+    public String getState() {
         return state;
     }
-    public void setState(){
-        this.state=state;
+
+    public void setState(String state) {
+        this.state = state;
     }
-    public int getZip(){
+
+    public int getZip() {
         return zip;
     }
-    public void setZip(){
-        this.zip=zip;
+
+    public void setZip(int zip) {
+        this.zip = zip;
     }
-    public int getPhoneno(){
+
+    public int getPhoneno() {
         return phoneno;
     }
-    public void setPhoneno(){
-        this.phoneno=phoneno;
+
+    public void setPhoneno(int phoneno) {
+        this.phoneno = phoneno;
     }
-    public String getEmail(){
+
+    public String getEmail() {
         return email;
     }
-    public void setEmail(){
-        this.email=email;
+
+    public void setEmail(String email) {
+        this.email = email;
     }
-    public String toString(){
-        return String.format("FirstName: "+firstname+" "+"LastName: "+lastname+" "+"Address: "+address+" "+"City: "+city+" "+"State: "+state+" "+"Zip: "+zip+" "+"PhoneNumber: "+phoneno+" "+"EmailID: "+email);
+
+    @Override
+    public String toString() {
+        return "contact{" +
+                "firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", zip=" + zip +
+                ", phoneno=" + phoneno +
+                ", email='" + email + '\'' +
+                '}';
     }
 
 }

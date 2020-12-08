@@ -1,7 +1,9 @@
+import com.google.gson.Gson;
 import com.opencsv.CSVReader;
+import com.opencsv.bean.CsvToBean;
+import com.opencsv.bean.CsvToBeanBuilder;
 
-import java.io.IOException;
-import java.io.Reader;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -10,35 +12,25 @@ import java.util.stream.Collectors;
 public class AddressBookMain {
     static ArrayList<String> check=new ArrayList<>();
     public static final String SAMPLE_CSV_FILE_PATH = "C:\\Users\\mural\\IdeaProjects\\AddressBook_CSV_JSON\\src\\main\\resources\\Users.csv";
+    private static final String SAMPLE_JSON_FILE_PATH = "C:\\Users\\mural\\IdeaProjects\\AddressBook_CSV_JSON\\src\\main\\resources\\Json.csv";
     public static void main(String[] args) throws IOException {
-        try (
-                Reader reader = Files.newBufferedReader(Paths.get(SAMPLE_CSV_FILE_PATH));
-                CSVReader csvReader = new CSVReader(reader);
-        ){
-            String[] nextRecord;
-            while ((nextRecord = csvReader.readNext()) != null) {
-                System.out.println("FirstName: " + nextRecord[0]);
-                System.out.println("LastName: " + nextRecord[1]);
-                System.out.println("Address: " + nextRecord[2]);
-                System.out.println("City: " + nextRecord[3]);
-                System.out.println("State: "+ nextRecord[4]);
-                System.out.println("Zip: " +nextRecord[5]);
-                System.out.println("Phone: " +nextRecord[6]);
-                System.out.println("Email: " +nextRecord[7]);
-                System.out.println("====================");
-            }
-            List<String[]> records = csvReader.readAll();
-            for(String[] record : records){
-                System.out.println("FirstName: " + record[0]);
-                System.out.println("LastName: " + record[1]);
-                System.out.println("Address: " + record[2]);
-                System.out.println("City: " + record[3]);
-                System.out.println("State: "+ record[4]);
-                System.out.println("Zip: " +record[5]);
-                System.out.println("Phone: " +record[6]);
-                System.out.println("Email: " +record[7]);
-                System.out.println("----------------------");
-            }
+        try{
+            Reader reader = Files.newBufferedReader(Paths.get(SAMPLE_CSV_FILE_PATH));
+            CsvToBeanBuilder<contact> csvToBeanBuilder = new CsvToBeanBuilder<>(reader);
+            csvToBeanBuilder.withType(contact.class);
+            csvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
+            CsvToBean<contact> csvToBean = csvToBeanBuilder.build();
+            List<contact> csvUsers = csvToBean.parse();
+            Gson gson = new Gson();
+            String json = gson.toJson(csvUsers);
+            FileWriter writer = new FileWriter(SAMPLE_JSON_FILE_PATH);
+            writer.write(json);
+            writer.close();
+            BufferedReader br = new BufferedReader(new FileReader(SAMPLE_JSON_FILE_PATH));
+            contact[] usrobj = gson.fromJson(br, contact[].class);
+            List<contact> csvUserList = Arrays.asList(usrobj);
+        }catch (IOException e){
+            e.printStackTrace();
         }
         bookdetails book1 = new bookdetails();
         System.out.println("..........Address Book Problem................");
