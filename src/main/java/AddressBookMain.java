@@ -1,4 +1,6 @@
 import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -10,7 +12,7 @@ import java.util.stream.Collectors;
 public class AddressBookMain {
     static ArrayList<String> check=new ArrayList<>();
     public static final String SAMPLE_CSV_FILE_PATH = "C:\\Users\\mural\\IdeaProjects\\AddressBook_CSV_JSON\\src\\main\\resources\\Users.csv";
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
         try(
         Reader reader = Files.newBufferedReader(Paths.get(SAMPLE_CSV_FILE_PATH));
         CSVReader csvReader = new CSVReader(reader);
@@ -207,6 +209,8 @@ public class AddressBookMain {
                     bookdetails.printData();
                     System.out.println("Reading details from file");
                     bookdetails.readData();
+                    bookdetails.writeCSV();
+                    bookdetails.readCSV();
 
                     for (int i = 0; i < book1.viewcontact().size(); i++) {
                         System.out.println("Details of person " + (i + 1));

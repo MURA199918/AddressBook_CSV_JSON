@@ -1,15 +1,22 @@
 import com.opencsv.CSVReader;
+import com.opencsv.bean.StatefulBeanToCsv;
+import com.opencsv.bean.StatefulBeanToCsvBuilder;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
+import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 public class bookdetails {
-    public static final String SAMPLE_CSV_FILE_PATH = "C:\\Users\\mural\\IdeaProjects\\AddressBook_CSV_JSON\\src\\main\\resources\\Users.csv";
+    public List<contact> contactList;
+    public static final String SAMPLE_CSV_FILE_PATH = "C:\\Users\\mural\\IdeaProjects\\AddressBook_CSV_JSON\\src\\main\\resources\\Sample.csv";
+    private static final String OBJECT_LIST_SAMPLE = "C:\\Users\\mural\\IdeaProjects\\AddressBook_CSV_JSON\\src\\main\\resources\\Sample.csv";
 
     ArrayList<contact> contactDetails = new ArrayList<>();
     public void addcontact(contact obj) {
@@ -52,6 +59,21 @@ public class bookdetails {
             e.printStackTrace();
         }
         return contactList;
+    }
+
+    public static void writeCSV() throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
+                Writer writer = Files.newBufferedWriter(Paths.get(OBJECT_LIST_SAMPLE));
+
+            StatefulBeanToCsv<contact> beanToCsv = new StatefulBeanToCsvBuilder(writer)
+                    .withQuotechar(com.opencsv.CSVWriter.NO_QUOTE_CHARACTER)
+                    .build();
+
+            List<contact> myusers = new ArrayList<>();
+            myusers = bookdetails.readData();
+            myusers.add(new contact("Rajeev","Kumar","gdbhbs","mumbai","kerela",446,3643778,"rajeev@example.com"));
+            myusers.add(new contact("Sachin","yadav","dhhddfh","mumbai","kerela",356,364747,"sachin@example.com"));
+
+            beanToCsv.write(myusers);
     }
 
     public static void readCSV() throws IOException {
