@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 import java.util.Iterator;
 
 public class OpenandParseToBean {
-    private static final String SAMPLE_CSV_FILE_PATH = "C:\\Users\\mural\\IdeaProjects\\DemoCSV\\src\\main\\resources\\Users.csv";
+    private static final String SAMPLE_CSV_FILE_PATH = "C:\\Users\\mural\\IdeaProjects\\DemoCSV\\src\\main\\resources\\Sample.csv";
 
     public static void main(String[] args) throws IOException {
         try(

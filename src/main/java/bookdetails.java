@@ -1,15 +1,24 @@
+import com.google.gson.Gson;
 import com.opencsv.CSVReader;
+import com.opencsv.bean.CsvToBean;
+import com.opencsv.bean.CsvToBeanBuilder;
+import com.opencsv.bean.StatefulBeanToCsv;
+import com.opencsv.bean.StatefulBeanToCsvBuilder;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.Reader;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class bookdetails {
-    public static final String SAMPLE_CSV_FILE_PATH = "C:\\Users\\mural\\IdeaProjects\\AddressBook_CSV_JSON\\src\\main\\resources\\Users.csv";
+    public static final String SAMPLE_CSV_FILE_PATH = "C:\\Users\\mural\\IdeaProjects\\AddressBook_CSV_JSON\\src\\main\\resources\\Sample.csv";
+    private static final String OBJECT_LIST_SAMPLE = "C:\\Users\\mural\\IdeaProjects\\AddressBook_CSV_JSON\\src\\main\\resources\\Sample.csv";
+    private static final String SAMPLE_JSON_FILE_PATH = "C:\\Users\\mural\\IdeaProjects\\AddressBook_CSV_JSON\\src\\main\\resources\\Json.csv";
+
     ArrayList<contact> contactDetails = new ArrayList<>();
     public void addcontact(contact obj) {
         contactDetails.add(obj);
@@ -52,6 +61,20 @@ public class bookdetails {
         }
         return contactList;
     }
+     public static void writeCSV() throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
+         Writer writer = Files.newBufferedWriter(Paths.get(OBJECT_LIST_SAMPLE));
+
+         StatefulBeanToCsv<contact> beanToCsv = new StatefulBeanToCsvBuilder(writer)
+                 .withQuotechar(com.opencsv.CSVWriter.NO_QUOTE_CHARACTER)
+                 .build();
+
+         List<contact> myusers = new ArrayList<>();
+         myusers = bookdetails.readData();
+         //myusers.add(new contact("Rajeev","Kumar","gdbhbs","mumbai","kerela",446,3643778,"rajeev@example.com"));
+         //myusers.add(new contact("Sachin","yadav","dhhddfh","mumbai","kerela",356,364747,"sachin@example.com"));
+
+         beanToCsv.write(myusers);
+     }
 
     public static void readCSV() throws IOException {
 
@@ -81,6 +104,27 @@ public class bookdetails {
             System.out.println("Phone: " + record[6]);
             System.out.println("Email: " + record[7]);
             System.out.println("----------------------");
+        }
+    }
+
+    public static void readandwriteJSON() throws IOException,CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
+        try{
+            Reader reader = Files.newBufferedReader(Paths.get(SAMPLE_CSV_FILE_PATH));
+            CsvToBeanBuilder<contact> csvToBeanBuilder = new CsvToBeanBuilder<>(reader);
+            csvToBeanBuilder.withType(contact.class);
+            csvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
+            CsvToBean<contact> csvToBean = csvToBeanBuilder.build();
+            List<contact> csvUsers = csvToBean.parse();
+            Gson gson = new Gson();
+            String json = gson.toJson(csvUsers);
+            FileWriter writer = new FileWriter(SAMPLE_JSON_FILE_PATH);
+            writer.write(json);
+            writer.close();
+            BufferedReader br = new BufferedReader(new FileReader(SAMPLE_JSON_FILE_PATH));
+            contact[] usrobj = gson.fromJson(br, contact[].class);
+            List<contact> csvUserList = Arrays.asList(usrobj);
+        }catch (IOException e){
+            e.printStackTrace();
         }
     }
 

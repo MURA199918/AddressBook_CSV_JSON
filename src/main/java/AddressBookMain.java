@@ -2,6 +2,8 @@ import com.google.gson.Gson;
 import com.opencsv.CSVReader;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -13,7 +15,7 @@ public class AddressBookMain {
     static ArrayList<String> check=new ArrayList<>();
     public static final String SAMPLE_CSV_FILE_PATH = "C:\\Users\\mural\\IdeaProjects\\AddressBook_CSV_JSON\\src\\main\\resources\\Users.csv";
     private static final String SAMPLE_JSON_FILE_PATH = "C:\\Users\\mural\\IdeaProjects\\AddressBook_CSV_JSON\\src\\main\\resources\\Json.csv";
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
         try{
             Reader reader = Files.newBufferedReader(Paths.get(SAMPLE_CSV_FILE_PATH));
             CsvToBeanBuilder<contact> csvToBeanBuilder = new CsvToBeanBuilder<>(reader);
@@ -198,6 +200,10 @@ public class AddressBookMain {
                     bookdetails.printData();
                     System.out.println("Reading details from file");
                     bookdetails.readData();
+                    bookdetails.writeCSV();
+                    bookdetails.readCSV();
+                    System.out.println("Reading and writing as JSON file: ");
+                    bookdetails.readandwriteJSON();
 
                     for (int i = 0; i < book1.viewcontact().size(); i++) {
                         System.out.println("Details of person " + (i + 1));

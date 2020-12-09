@@ -22,7 +22,7 @@ public class contact {
     @CsvBindByName(column = "phoneno")
     int phoneno;
 
-    @CsvBindByName(column = "email", required = true)
+    @CsvBindByName(column = "email")
     String email;
 
     public String getFirstname() {
