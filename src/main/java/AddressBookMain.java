@@ -16,24 +16,6 @@ public class AddressBookMain {
     public static final String SAMPLE_CSV_FILE_PATH = "C:\\Users\\mural\\IdeaProjects\\AddressBook_CSV_JSON\\src\\main\\resources\\Users.csv";
     private static final String SAMPLE_JSON_FILE_PATH = "C:\\Users\\mural\\IdeaProjects\\AddressBook_CSV_JSON\\src\\main\\resources\\Json.csv";
     public static void main(String[] args) throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
-        try{
-            Reader reader = Files.newBufferedReader(Paths.get(SAMPLE_CSV_FILE_PATH));
-            CsvToBeanBuilder<contact> csvToBeanBuilder = new CsvToBeanBuilder<>(reader);
-            csvToBeanBuilder.withType(contact.class);
-            csvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
-            CsvToBean<contact> csvToBean = csvToBeanBuilder.build();
-            List<contact> csvUsers = csvToBean.parse();
-            Gson gson = new Gson();
-            String json = gson.toJson(csvUsers);
-            FileWriter writer = new FileWriter(SAMPLE_JSON_FILE_PATH);
-            writer.write(json);
-            writer.close();
-            BufferedReader br = new BufferedReader(new FileReader(SAMPLE_JSON_FILE_PATH));
-            contact[] usrobj = gson.fromJson(br, contact[].class);
-            List<contact> csvUserList = Arrays.asList(usrobj);
-        }catch (IOException e){
-            e.printStackTrace();
-        }
         bookdetails book1 = new bookdetails();
         System.out.println("..........Address Book Problem................");
         Scanner sc = new Scanner(System.in);
@@ -200,7 +182,9 @@ public class AddressBookMain {
                     bookdetails.printData();
                     System.out.println("Reading details from file");
                     bookdetails.readData();
+                    System.out.println("Writing data into CSV file");
                     bookdetails.writeCSV();
+                    System.out.println("Reading data from CSV file");
                     bookdetails.readCSV();
                     System.out.println("Reading and writing as JSON file: ");
                     bookdetails.readandwriteJSON();
