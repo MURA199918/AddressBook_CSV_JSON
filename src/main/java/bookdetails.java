@@ -62,48 +62,55 @@ public class bookdetails {
     }
 
     public static void writeCSV() throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
-                Writer writer = Files.newBufferedWriter(Paths.get(OBJECT_LIST_SAMPLE));
 
-            StatefulBeanToCsv<contact> beanToCsv = new StatefulBeanToCsvBuilder(writer)
-                    .withQuotechar(com.opencsv.CSVWriter.NO_QUOTE_CHARACTER)
-                    .build();
+               try(
+                Writer writer = Files.newBufferedWriter(Paths.get(SAMPLE_CSV_FILE_PATH));
+               ) {
 
-            List<contact> myusers = new ArrayList<>();
-            myusers = bookdetails.readData();
-            myusers.add(new contact("Rajeev","Kumar","gdbhbs","mumbai","kerela",446,3643778,"rajeev@example.com"));
-            myusers.add(new contact("Sachin","yadav","dhhddfh","mumbai","kerela",356,364747,"sachin@example.com"));
+                   StatefulBeanToCsv<contact> beanToCsv = new StatefulBeanToCsvBuilder(writer)
+                           .withQuotechar(com.opencsv.CSVWriter.NO_QUOTE_CHARACTER)
+                           .build();
 
-            beanToCsv.write(myusers);
+                   List<contact> myusers = new ArrayList<>();
+                   myusers = bookdetails.readData();
+                   myusers.add(new contact("Rajeev", "Kumar", "gdbhbs", "mumbai", "kerela", 446, 3643778, "rajeev@example.com"));
+                   myusers.add(new contact("Sachin", "yadav", "dhhddfh", "mumbai", "kerela", 356, 364747, "sachin@example.com"));
+
+                   beanToCsv.write(myusers);
+               }
     }
 
     public static void readCSV() throws IOException {
 
+        try(
         Reader reader = Files.newBufferedReader(Paths.get(SAMPLE_CSV_FILE_PATH));
         CSVReader csvReader = new CSVReader(reader);
+        ) {
 
-        String[] nextRecord;
-        while ((nextRecord = csvReader.readNext()) != null) {
-            System.out.println("FirstName: " + nextRecord[0]);
-            System.out.println("LastName: " + nextRecord[1]);
-            System.out.println("Address: " + nextRecord[2]);
-            System.out.println("City: " + nextRecord[3]);
-            System.out.println("State: " + nextRecord[4]);
-            System.out.println("Zip: " + nextRecord[5]);
-            System.out.println("Phone: " + nextRecord[6]);
-            System.out.println("Email: " + nextRecord[7]);
-            System.out.println("====================");
-        }
-        List<String[]> records = csvReader.readAll();
-        for (String[] record : records) {
-            System.out.println("FirstName: " + record[0]);
-            System.out.println("LastName: " + record[1]);
-            System.out.println("Address: " + record[2]);
-            System.out.println("City: " + record[3]);
-            System.out.println("State: " + record[4]);
-            System.out.println("Zip: " + record[5]);
-            System.out.println("Phone: " + record[6]);
-            System.out.println("Email: " + record[7]);
-            System.out.println("----------------------");
+            String[] nextRecord;
+            while ((nextRecord = csvReader.readNext()) != null) {
+                System.out.println("FirstName: " + nextRecord[0]);
+                System.out.println("LastName: " + nextRecord[1]);
+                System.out.println("Address: " + nextRecord[2]);
+                System.out.println("City: " + nextRecord[3]);
+                System.out.println("State: " + nextRecord[4]);
+                System.out.println("Zip: " + nextRecord[5]);
+                System.out.println("Phone: " + nextRecord[6]);
+                System.out.println("Email: " + nextRecord[7]);
+                System.out.println("====================");
+            }
+            List<String[]> records = csvReader.readAll();
+            for (String[] record : records) {
+                System.out.println("FirstName: " + record[0]);
+                System.out.println("LastName: " + record[1]);
+                System.out.println("Address: " + record[2]);
+                System.out.println("City: " + record[3]);
+                System.out.println("State: " + record[4]);
+                System.out.println("Zip: " + record[5]);
+                System.out.println("Phone: " + record[6]);
+                System.out.println("Email: " + record[7]);
+                System.out.println("----------------------");
+            }
         }
     }
 

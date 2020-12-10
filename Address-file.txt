@@ -1,1 +1,1 @@
-contact{firstname='manoj', lastname='sgs', address='hfhfn', city='trichy', state='mh', zip=536, phoneno=756485, email='hdfnfh'}
+contact{firstname='manoj', lastname='dfhdh', address='dhgsh', city='trichy', state='mh', zip=5346, phoneno=6345647, email='gdhgh'}
