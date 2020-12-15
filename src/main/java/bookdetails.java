@@ -73,8 +73,8 @@ public class bookdetails {
 
             List<contact> myusers = new ArrayList<>();
             myusers = bookdetails.readData();
-            //myusers.add(new contact("Rajeev","Kumar","gdbhbs","mumbai","kerela",446,3643778,"rajeev@example.com"));
-            //myusers.add(new contact("Sachin","yadav","dhhddfh","mumbai","kerela",356,364747,"sachin@example.com"));
+            myusers.add(new contact("Rajeev","Kumar","gdbhbs","mumbai","kerela",446,3643778,"rajeev@example.com"));
+            myusers.add(new contact("Sachin","yadav","dhhddfh","mumbai","kerela",356,364747,"sachin@example.com"));
 
             beanToCsv.write(myusers);
         }

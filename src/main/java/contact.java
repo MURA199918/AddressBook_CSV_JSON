@@ -25,6 +25,21 @@ public class contact {
     @CsvBindByName(column = "email")
     String email;
 
+    public contact(String firstname, String lastname, String address, String city, String state, int zip, int phoneno, String email) {
+        this.firstname=firstname;
+        this.lastname=lastname;
+        this.address=address;
+        this.city=city;
+        this.state=state;
+        this.zip=zip;
+        this.phoneno=phoneno;
+        this.email=email;
+    }
+
+    public contact() {
+
+    }
+
     public String getFirstname() {
         return firstname;
     }

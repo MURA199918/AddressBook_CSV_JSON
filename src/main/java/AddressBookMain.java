@@ -232,24 +232,28 @@ public class AddressBookMain {
 
         System.out.println("Sorting addressbook by FirstName");
         for (Map.Entry entry : addbook.entrySet()) {
-            List<contact> list = ((bookdetails) entry.getValue()).viewcontact().stream().sorted(Comparator.comparing(contact::getFirstname)).collect(Collectors.toList());
-            System.out.println(entry.getKey() + " " + list.toString());
+            System.out.println(entry.getKey()+" "+entry.getValue());
+            //List<contact> list = ((bookdetails) entry.getValue()).viewcontact().stream().sorted(Comparator.comparing(contact::getFirstname)).collect(Collectors.toList());
+            //System.out.println(entry.getKey() + " " + list.toString());
         }
 
         System.out.println("Sorting addressbook by City");
         for (Map.Entry entry : addbook.entrySet()) {
-            List<contact> list = ((bookdetails) entry.getValue()).viewcontact().stream().sorted(Comparator.comparing(contact::getCity)).collect(Collectors.toList());
-            System.out.println(entry.getKey() + " " + list.toString());
+            System.out.println(entry.getKey()+" "+entry.getValue());
+            //List<contact> list = ((bookdetails) entry.getValue()).viewcontact().stream().sorted(Comparator.comparing(contact::getCity)).collect(Collectors.toList());
+            //System.out.println(entry.getKey() + " " + list.toString());
         }
 
         System.out.println("Sorting addressbook by State");
         for (Map.Entry entry : addbook.entrySet()) {
-            List<contact> list = ((bookdetails) entry.getValue()).viewcontact().stream().sorted(Comparator.comparing(contact::getState)).collect(Collectors.toList());
-            System.out.println(entry.getKey() + " " + list.toString());
+            System.out.println(entry.getKey()+" "+entry.getValue());
+            //List<contact> list = ((bookdetails) entry.getValue()).viewcontact().stream().sorted(Comparator.comparing(contact::getState)).collect(Collectors.toList());
+            //System.out.println(entry.getKey() + " " + list.toString());
         }
 
         System.out.println("Sorting addressbook by Zip");
         for (Map.Entry entry : addbook.entrySet()) {
+            System.out.println(entry.getKey()+" "+entry.getValue());
             List<contact> list = ((bookdetails) entry.getValue()).viewcontact().stream().sorted(Comparator.comparing(contact::getZip)).collect(Collectors.toList());
             System.out.println(entry.getKey() + " " + list.toString());
         }
